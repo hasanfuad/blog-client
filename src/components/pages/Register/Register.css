@@ -1,0 +1,56 @@
+.register {
+  height: calc(100vh - 50px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url("https://media.istockphoto.com/photos/modern-keyboard-with-blue-online-registration-button-picture-id931524202?b=1&k=20&m=931524202&s=170667a&w=0&h=AUacfR9LFQ97ZvYVA97VXPSdjbn-DMezqL3MDEwJSqc=");
+  background-size: cover;
+}
+
+.registerTitle {
+  font-size: 50px;
+}
+
+.registerForm {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.registerForm > label {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.registerInput {
+  padding: 10px;
+  background-color: white;
+  border: none;
+}
+
+.registerButton {
+  margin-top: 20px;
+  cursor: pointer;
+  background-color: teal;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 8px;
+}
+
+.registerLoginButton {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  cursor: pointer;
+  border: none;
+  padding: 10px;
+  background-color: lightcoral;
+  color: white;
+  border-radius: 10px;
+}
