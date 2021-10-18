@@ -1,42 +1,26 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Post.css";
 
-function Post(props) {
+function Post({ post }) {
   return (
     <div className="post">
-      <img
-        className="postImg"
-        src="https://picsum.photos/seed/picsum/200/300"
-        alt="postImg"
-      />
+      {post.photo && <img className="postImg" src={post.photo} alt="" />}
 
       <div className="postInfo">
         <div className="postCategories">
-          <span className="postCategory">Music</span>
-          <span className="postCategory">Life</span>
+          {post.categories.map((c) => (
+            <span className="postCategory">{c.name}</span>
+          ))}
         </div>
-
-        <span className="postTitle">Lorem ipsum dolor sit amet.</span>
+        <Link to={`/post/${post._id}`} className="link">
+          <span className="postTitle">{post.title}</span>
+        </Link>
         <hr />
-        <span className="postDate">1 hour ago</span>
-        <p className="postDescription">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit porro
-          doloribus nam numquam itaque voluptatem aut repellat accusamus ullam?
-          Saepe commodi tenetur eligendi similique minima, officia ab magni?
-          Sunt, nisi? Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-          Odit porro doloribus nam numquam itaque voluptatem aut repellat
-          accusamus ullam? Saepe commodi tenetur eligendi similique minima,
-          officia ab magni? Sunt, nisi? Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit. Odit porro doloribus nam numquam itaque voluptatem
-          aut repellat accusamus ullam? Saepe commodi tenetur eligendi similique
-          minima, officia ab magni? Sunt, nisi? Lorem ipsum dolor sit amet,
-          consectetur adipisicing elit. Odit porro doloribus nam numquam itaque
-          voluptatem aut repellat accusamus ullam? Saepe commodi tenetur
-          eligendi similique minima, officia ab magni? Sunt, nisi? Lorem ipsum
-          dolor sit amet, consectetur adipisicing elit. Odit porro doloribus nam
-          numquam itaque voluptatem aut repellat accusamus ullam? Saepe commodi
-          tenetur eligendi similique minima, officia ab magni? Sunt, nisi?
-        </p>
+        <span className="postDate">
+          {new Date(post.updatedAt).toDateString()}
+        </span>
+        <p className="postDescription">{post.desc}</p>
       </div>
     </div>
   );

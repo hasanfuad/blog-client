@@ -5,8 +5,8 @@ function Header(props) {
   return (
     <div className="header">
       <div className="headerTitles">
-        <span className="headerTitleSm">React & Node</span>
-        <span className="headerTitleLg">Blog</span>
+        <span className="headerTitleSm">Fuad's Personal</span>
+        <span className="headerTitleLg">BLOG</span>
       </div>
       <img
         src="https://picsum.photos/seed/picsum/200/300"
