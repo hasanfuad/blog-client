@@ -1,22 +1,31 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
+import { Link } from "react-router-dom";
 import "./SinglePost.css";
 
 function SinglePost(props) {
   const location = useLocation();
-  const id = location.pathname.split("/")[2];
-  console.log(id);
+  const path = location.pathname.split("/")[2];
+  const [post, setPost] = useState({});
+
+  useEffect(() => {
+    const getPost = async () => {
+      const res = await axios.get("/posts/" + path);
+      setPost(res.data);
+    };
+    getPost();
+  }, [path]);
+
   return (
     <div className="singlePost">
       <div className="singlePostWrapper">
-        <img
-          src="https://picsum.photos/seed/picsum/200/300"
-          alt="singlePost"
-          className="singlePostImg"
-        />
+        {post.photo && (
+          <img src={post.photo} alt="" className="singlePostImg" />
+        )}
 
         <h1 className="singlePostTitle">
-          Lorem ipsum dolor sit.
+          {post.title}
           <div className="singlePostEdit">
             <i className="singlePostIcon far fa-edit"></i>
             <i className="singlePostIcon far fa-trash-alt"></i>
@@ -24,35 +33,16 @@ function SinglePost(props) {
         </h1>
         <div className="singlePostInfo">
           <span className="singlePostAuthor">
-            Author: <b>Fuad</b>
+            Author:
+            <Link to={`/?user=${post.username}`} className="link">
+              <b>{post.username}</b>
+            </Link>
           </span>
           <span className="singlePostDate">
-            Date: <b>1 hour ago</b>
+            Date: <b>{new Date(post.createdAt).toDateString()}</b>
           </span>
         </div>
-        <p className="singlePostDescription">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Totam sit
-          suscipit cum facilis quos dolore quis fuga perspiciatis, repellat
-          dolor delectus autem voluptatem illo, sapiente eos alias ullam! Ad,
-          sapiente! dolor delectus autem voluptatem illo, sapiente eos alias
-          ullam! Ad, sapiente! Lorem ipsum dolor sit, amet consectetur
-          adipisicing elit. Repellendus accusantium consectetur sapiente,
-          officiis corrupti voluptatum et? Explicabo libero modi pariatur
-          dignissimos, quisquam impedit, veritatis ea eos quaerat enim a
-          expedita id ad mollitia esse fugiat suscipit laborum quod omnis
-          exercitationem cumque fugit aperiam, vitae sed. Aperiam, magnam
-          voluptate. Beatae, fuga! Lorem ipsum dolor sit, amet consectetur
-          adipisicing elit. Totam sit suscipit cum facilis quos dolore quis fuga
-          perspiciatis, repellat dolor delectus autem voluptatem illo, sapiente
-          eos alias ullam! Ad, sapiente! dolor delectus autem voluptatem illo,
-          sapiente eos alias ullam! Ad, sapiente! Lorem ipsum dolor sit, amet
-          consectetur adipisicing elit. Repellendus accusantium consectetur
-          sapiente, officiis corrupti voluptatum et? Explicabo libero modi
-          pariatur dignissimos, quisquam impedit, veritatis ea eos quaerat enim
-          a expedita id ad mollitia esse fugiat suscipit laborum quod omnis
-          exercitationem cumque fugit aperiam, vitae sed. Aperiam, magnam
-          voluptate. Beatae, fuga!
-        </p>
+        <p className="singlePostDescription">{post.desc}</p>
       </div>
     </div>
   );

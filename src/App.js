@@ -5,9 +5,9 @@ import Home from "./components/pages/Home";
 import Login from "./components/pages/Login/Login.jsx";
 import Register from "./components/pages/Register/Register.jsx";
 import Settings from "./components/pages/Settings/Settings.jsx";
-// import SinglePost from "./components/SinglePost/SinglePost.jsx";
-import Single from "./components/pages/Single/Single.jsx";
+// import Single from "./components/pages/Single/Single.jsx";
 import Write from "./components/pages/Write/Write.jsx";
+import SinglePost from "./components/SinglePost/SinglePost.jsx";
 import TopBar from "./components/TobBar/TopBar";
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
         {user ? <Settings/> : <Register/>}
         </Route>
         <Route path="/post/:postId">
-          <Single/>
+          <SinglePost/>
         </Route>
       </Switch>
     </Router>
