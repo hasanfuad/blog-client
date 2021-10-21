@@ -10,12 +10,11 @@ function SinglePost(props) {
   const location = useLocation();
   const path = location.pathname.split("/")[2];
   const [post, setPost] = useState({});
+  const publicFolder = "http://localhost:5000/images/";
   const { user } = useContext(Context);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [updateMode, setUpdateMode] = useState(false);
-
-  const publicFolder = "http://localhost:5000/images/";
 
   useEffect(() => {
     const getPost = async () => {
@@ -27,7 +26,7 @@ function SinglePost(props) {
     getPost();
   }, [path]);
 
-  const handleDelete = async (e) => {
+  const handleDelete = async () => {
     try {
       await axios.delete(`/posts/${post._id}`, {
         data: { username: user.username },
@@ -36,15 +35,14 @@ function SinglePost(props) {
     } catch (err) {}
   };
 
-  const handleUpdate = async (e) => {
+  const handleUpdate = async () => {
     try {
       await axios.put(`/posts/${post._id}`, {
-        data: { username: user.username },
+        username: user.username,
         title,
         desc,
       });
-
-      window.location.reload();
+      setUpdateMode(false);
     } catch (err) {}
   };
 
@@ -64,7 +62,7 @@ function SinglePost(props) {
             value={title}
             className="singlePostTitleInput"
             autoFocus
-            onchange={(e) => setTitle(e.target.value)}
+            onChange={(e) => setTitle(e.target.value)}
           />
         ) : (
           <h1 className="singlePostTitle">
@@ -87,25 +85,24 @@ function SinglePost(props) {
           <span className="singlePostAuthor">
             Author:
             <Link to={`/?user=${post.username}`} className="link">
-              <b>{post.username}</b>
+              <b> {post.username}</b>
             </Link>
           </span>
           <span className="singlePostDate">
-            Date: <b>{new Date(post.createdAt).toDateString()}</b>
+            {new Date(post.createdAt).toDateString()}
           </span>
         </div>
         {updateMode ? (
           <textarea
-            className="singlePostDescriptionInput"
+            className="singlePostDescInput"
             value={desc}
-            onchange={(e) => setDesc(e.target.value)}
+            onChange={(e) => setDesc(e.target.value)}
           />
         ) : (
-          <p className="singlePostDescription">{desc}</p>
+          <p className="singlePostDesc">{desc}</p>
         )}
-
         {updateMode && (
-          <button className="singlePostBtn" onClick={handleUpdate}>
+          <button className="singlePostButton" onClick={handleUpdate}>
             Update
           </button>
         )}
