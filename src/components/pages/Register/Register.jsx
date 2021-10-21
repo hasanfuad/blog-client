@@ -7,15 +7,22 @@ function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await axios.post("/auth/register", {
-      username: username,
-      email: email,
-      password: password,
-    });
-    console.log(res);
+    setError(false);
+    try {
+      const res = await axios.post("/auth/register", {
+        username,
+        email,
+        password,
+      });
+      console.log(res);
+      res.data && window.location.replace("/login");
+    } catch (err) {
+      setError(true);
+    }
   };
 
   return (
@@ -52,6 +59,11 @@ function Register() {
           Login
         </Link>
       </button>
+      {error && (
+        <span style={{ color: "red", marginTop: "10px" }}>
+          Use a unique username and email went wrong!
+        </span>
+      )}
     </div>
   );
 }

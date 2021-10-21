@@ -3,12 +3,12 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./SideBar.css";
 
-function SideBar(props) {
+function SideBar() {
   const [cats, setCats] = useState([]);
 
   useEffect(() => {
     const getCats = async () => {
-      const res = await axios.get("/categories/");
+      const res = await axios.get("/categories");
       setCats(res.data);
     };
     getCats();
@@ -32,7 +32,11 @@ function SideBar(props) {
         <span className="sidebarTitle">CATEGORIES</span>
         <ul className="sidebarList">
           {cats.map((catsName) => (
-            <Link to={`/?cat=${catsName.name}`} className="link">
+            <Link
+              to={`/?cat=${catsName.name}`}
+              key={catsName._id}
+              className="link"
+            >
               <li className="sidebarListItem"> {catsName.name} </li>
             </Link>
           ))}
