@@ -10,7 +10,7 @@ import Settings from "./components/pages/Settings/Settings.jsx";
 // import Single from "./components/pages/Single/Single.jsx";
 import Write from "./components/pages/Write/Write.jsx";
 import SinglePost from "./components/SinglePost/SinglePost.jsx";
-import TopBar from "./components/TobBar/TopBar";
+import TopBar from "./components/TopBar/TopBar";
 
 function App() {
   const {user} = useContext(Context);

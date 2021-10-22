@@ -1,6 +1,6 @@
-import axios from "axios";
 import React, { useContext, useState } from "react";
 import SideBar from "../../../components/SideBar/SideBar";
+import { axiosInstance } from "../../../config";
 import { Context } from "../../context/Context";
 import "./Settings.css";
 
@@ -31,12 +31,12 @@ function Settings() {
       updatedUser.profilePic = filename;
 
       try {
-        await axios.post("/upload", data);
+        await axiosInstance.post("/upload", data);
       } catch (err) {}
     }
 
     try {
-      const res = await axios.put("/users/" + user._id, updatedUser);
+      const res = await axiosInstance.put("/users/" + user._id, updatedUser);
       setSuccess(true);
       dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
     } catch (err) {
