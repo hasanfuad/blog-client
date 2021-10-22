@@ -19,7 +19,25 @@ const Reducer = (state, action) => {
         error: true,
       };
 
-      case "LOG_OUT":
+    case "UPDATE_START":
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case "UPDATE_SUCCESS":
+      return {
+        user: action.payload,
+        isFetching: false,
+        error: false,
+      };
+    case "UPDATE_FAILURE":
+      return {
+        user: state.user,
+        isFetching: false,
+        error: true,
+      };
+
+    case "LOG_OUT":
       return {
         user: null,
         isFetching: false,
@@ -29,6 +47,5 @@ const Reducer = (state, action) => {
       return state;
   }
 };
-
 
 export default Reducer;
